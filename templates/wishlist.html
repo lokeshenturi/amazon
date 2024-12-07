@@ -1,0 +1,119 @@
+{% extends 'base.html' %}
+
+{% block title %}Home Page{% endblock %}
+
+{% block content %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Amazon Sales Wishlist</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        }
+        .wishlist-container {
+            background: #fff;
+            padding: 20px 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            width: 90%;
+            max-width: 600px;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 20px;
+        }
+        form input, form button {
+            padding: 10px;
+            margin: 5px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        form button {
+            background-color: #28a745;
+            color: white;
+            cursor: pointer;
+            border: none;
+        }
+        form button:hover {
+            background-color: #218838;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background-color: #007bff;
+            color: white;
+        }
+    </style>
+<body>
+    <div class="wishlist-container">
+        <h1>Amazon Sales Wishlist</h1>
+        <form id="wishlistForm">
+            <input type="text" id="itemName" placeholder="Item Name" required>
+            <input type="text" id="itemPrice" placeholder="Price (USD)" required>
+            <input type="text" id="itemLink" placeholder="Amazon Link" required>
+            <button type="submit">Add to Wishlist</button>
+        </form>
+        <table>
+            <thead>
+                <tr>
+                    <th>Item Name</th>
+                    <th>Price (USD)</th>
+                    <th>Amazon Link</th>
+                </tr>
+            </thead>
+            <tbody id="wishlistTable">
+                <!-- Wishlist items will be displayed here -->
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        // JavaScript to handle wishlist functionality
+        const wishlistForm = document.getElementById('wishlistForm');
+        const wishlistTable = document.getElementById('wishlistTable');
+
+        wishlistForm.addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            // Get form values
+            const itemName = document.getElementById('itemName').value;
+            const itemPrice = document.getElementById('itemPrice').value;
+            const itemLink = document.getElementById('itemLink').value;
+
+            // Create a new row in the table
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td>${itemName}</td>
+                <td>${itemPrice}</td>
+                <td><a href="${itemLink}" target="_blank">View</a></td>
+            `;
+            wishlistTable.appendChild(row);
+
+            // Clear form inputs
+            wishlistForm.reset();
+        });
+    </script>
+</body>
+{% endblock %}
